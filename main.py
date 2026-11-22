@@ -1,10 +1,14 @@
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from datetime import datetime
 import os
 
-app = FastAPI()
+class UTF8JSONResponse(JSONResponse):
+    media_type = "application/json; charset=utf-8"
+
+app = FastAPI(default_response_class=UTF8JSONResponse)
 
 app.add_middleware(
     CORSMiddleware,
